@@ -1,0 +1,33 @@
+{
+  "name": "pimm",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stevenschobert/pimm",
+  "description": "An easy-going web framework for Node.",
+  "main": "lib/pimm.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jshint --reporter ./node_modules/jshint-stylish/stylish.js lib/** test/** && ./node_modules/.bin/mocha -R spec test/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/stevenschobert/pimm.git"
+  },
+  "author": "Steven Schobert <spschobert@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevenschobert/pimm/issues"
+  },
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "keylime": "git+ssh://git@github.com:ovenbits/keylime",
+    "lodash": "^2.4.1",
+    "mach": "^0.12.0",
+    "recursive-readdir": "^1.1.3"
+  },
+  "devDependencies": {
+    "assert": "^1.1.1",
+    "mocha": "^1.21.4",
+    "jshint-stylish": "^0.4.0",
+    "jshint": "^2.5.2",
+    "supertest": "^0.13.0"
+  }
+}
