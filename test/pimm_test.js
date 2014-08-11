@@ -38,5 +38,26 @@
         });
       });
     });
+
+    describe('#use', function() {
+      describe('with a non-function argument', function() {
+        it('should throw an error', function() {
+          assert.throws(p.use, /function.*use/i);
+        });
+      });
+
+      describe('with a function argument', function() {
+        it('should return the same instance', function() {
+          assert.equal(p, p.use(function() {}));
+        });
+
+        it('should add a middleware to the stack', function() {
+          var func = function() {};
+          p.use(func);
+          assert(_.contains(p.middleware, func));
+        });
+      });
+
+    });
   });
 }());
