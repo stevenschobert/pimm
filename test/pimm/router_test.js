@@ -15,7 +15,7 @@
 
     describe('#get', function() {
       beforeEach(function() {
-        r.get('/profile', 'users#show');
+        r.get('profile', 'users#show');
       });
 
       it('should add a route', function() {
@@ -33,7 +33,7 @@
 
     describe('#post', function() {
       beforeEach(function() {
-        r.post('/profile', 'users#create');
+        r.post('profile', 'users#create');
       });
 
       it('should add a route', function() {
@@ -51,7 +51,7 @@
 
     describe('#patch', function() {
       beforeEach(function() {
-        r.patch('/profile', 'users#update');
+        r.patch('profile', 'users#update');
       });
 
       it('should add a route', function() {
@@ -69,7 +69,7 @@
 
     describe('#put', function() {
       beforeEach(function() {
-        r.put('/profile', 'users#replace');
+        r.put('profile', 'users#replace');
       });
 
       it('should add a route', function() {
@@ -87,7 +87,7 @@
 
     describe('#delete', function() {
       beforeEach(function() {
-        r.delete('/profile', 'users#destroy');
+        r.delete('profile', 'users#destroy');
       });
 
       it('should add a route', function() {
