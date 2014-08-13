@@ -19,87 +19,87 @@
       });
 
       it('should add a route', function() {
-        assert(_.has(r.routes, '/profile'));
+        assert(!_.isEmpty(_.select(r.routes, {path: '/profile'})));
       });
 
       it('should set the method to get', function() {
-        assert.equal(r.routes['/profile'].method, 'get');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).method, 'get');
       });
 
       it('should set the action', function() {
-        assert.equal(r.routes['/profile'].action, 'users#show');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#show');
       });
     });
 
     describe('#post', function() {
       beforeEach(function() {
-        r.post('/login', 'sessions#create');
+        r.post('/profile', 'users#create');
       });
 
       it('should add a route', function() {
-        assert(_.has(r.routes, '/login'));
+        assert(!_.isEmpty(_.select(r.routes, {path: '/profile'})));
       });
 
       it('should set the method to post', function() {
-        assert.equal(r.routes['/login'].method, 'post');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).method, 'post');
       });
 
       it('should set the action', function() {
-        assert.equal(r.routes['/login'].action, 'sessions#create');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#create');
       });
     });
 
     describe('#patch', function() {
       beforeEach(function() {
-        r.patch('/profile', 'profile#update');
+        r.patch('/profile', 'users#update');
       });
 
       it('should add a route', function() {
-        assert(_.has(r.routes, '/profile'));
+        assert(!_.isEmpty(_.select(r.routes, {path: '/profile'})));
       });
 
       it('should set the method to patch', function() {
-        assert.equal(r.routes['/profile'].method, 'patch');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).method, 'patch');
       });
 
       it('should set the action', function() {
-        assert.equal(r.routes['/profile'].action, 'profile#update');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#update');
       });
     });
 
     describe('#put', function() {
       beforeEach(function() {
-        r.put('/profile', 'profile#replace');
+        r.put('/profile', 'users#replace');
       });
 
       it('should add a route', function() {
-        assert(_.has(r.routes, '/profile'));
+        assert(!_.isEmpty(_.select(r.routes, {path: '/profile'})));
       });
 
       it('should set the method to put', function() {
-        assert.equal(r.routes['/profile'].method, 'put');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).method, 'put');
       });
 
       it('should set the action', function() {
-        assert.equal(r.routes['/profile'].action, 'profile#replace');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#replace');
       });
     });
 
     describe('#delete', function() {
       beforeEach(function() {
-        r.delete('/profile', 'profile#delete');
+        r.delete('/profile', 'users#destroy');
       });
 
       it('should add a route', function() {
-        assert(_.has(r.routes, '/profile'));
+        assert(!_.isEmpty(_.select(r.routes, {path: '/profile'})));
       });
 
       it('should set the method to delete', function() {
-        assert.equal(r.routes['/profile'].method, 'delete');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).method, 'delete');
       });
 
       it('should set the action', function() {
-        assert.equal(r.routes['/profile'].action, 'profile#delete');
+        assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#destroy');
       });
     });
   });
