@@ -37,10 +37,8 @@
         assert.equal(cm.methodForSignature('sub/room#index')(), cm.controllers['sub/room'].index());
       });
 
-      it('should throw an error if the handler does not exist', function() {
-        assert.throws(function() {
-          cm.methodForSignature('test');
-        }, /method.*sig/);
+      it('should return null if the handler does not exist', function() {
+        assert(_.isNull(cm.methodForSignature('test')));
       });
     });
   });
