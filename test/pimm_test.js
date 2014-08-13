@@ -6,7 +6,7 @@
 
       Pimm = require('../');
 
-  describe('Pimm instance', function() {
+  describe('Pimm', function() {
     var p;
 
     beforeEach(function() {
