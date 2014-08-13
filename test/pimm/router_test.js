@@ -234,5 +234,39 @@
         })));
       });
     });
+
+    describe('namespace', function() {
+      beforeEach(function() {
+        r.namespace('api', function() {
+          this.get('profile', 'profile#show');
+          this.resources('posts');
+          this.resource('settings');
+        });
+      });
+
+      it('should prefix all the methods with the namespace value', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/api/profile',
+          method: 'get',
+          action: 'api/profile#show'
+        })));
+      });
+
+      it('should prefix resources with the namespace', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/api/posts',
+          method: 'get',
+          action: 'api/posts#index'
+        })));
+      });
+
+      it('should prefix resource with the namespace', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/api/settings/edit',
+          method: 'get',
+          action: 'api/settings#edit'
+        })));
+      });
+    });
   });
 }());
