@@ -102,5 +102,75 @@
         assert.equal(_.first(_.select(r.routes, {path: '/profile'})).action, 'users#destroy');
       });
     });
+
+    describe('#resources', function() {
+      beforeEach(function() {
+        r.resources('posts');
+      });
+
+      it('should add an index route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts',
+          method: 'get',
+          action: 'posts#index'
+        })));
+      });
+
+      it('should add a create route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts',
+          method: 'post',
+          action: 'posts#create'
+        })));
+      });
+
+      it('should add a \'new\' route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/new',
+          method: 'get',
+          action: 'posts#new'
+        })));
+      });
+
+      it('should add a show route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/:id',
+          method: 'get',
+          action: 'posts#show'
+        })));
+      });
+
+      it('should add an edit route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/:id/edit',
+          method: 'get',
+          action: 'posts#edit'
+        })));
+      });
+
+      it('should add a delete route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/:id',
+          method: 'delete',
+          action: 'posts#destroy'
+        })));
+      });
+
+      it('should add an update route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/:id',
+          method: 'patch',
+          action: 'posts#update'
+        })));
+      });
+
+      it('should add a replace route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/posts/:id',
+          method: 'put',
+          action: 'posts#replace'
+        })));
+      });
+    });
   });
 }());
