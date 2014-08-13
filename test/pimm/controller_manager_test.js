@@ -10,17 +10,14 @@
   describe('ControllerManager', function() {
     var cm;
 
-    beforeEach(function() {
+    beforeEach(function(done) {
       cm = new ControllerManager({dir: path.resolve(__dirname, '../fixtures/controllers')});
+      cm.load().then(function() {
+        done();
+      }).catch(done);
     });
 
     describe('#load', function() {
-      beforeEach(function(done) {
-        cm.load().then(function() {
-          done();
-        }).catch(done);
-      });
-
       it('should load controllers from the directory', function() {
         assert(!_.isEmpty(cm.controllers));
       });
@@ -32,6 +29,18 @@
       it('should use the controllers methods as sub-keys', function() {
         assert(_.has(cm.controllers['sub/room'], 'index'));
         assert.equal(cm.controllers['sub/room'].index(), cm.controllers['sub/room']._instance.index());
+      });
+    });
+
+    describe('#methodForSignature', function() {
+      it('should return the handler', function() {
+        assert.equal(cm.methodForSignature('sub/room#index')(), cm.controllers['sub/room'].index());
+      });
+
+      it('should throw an error if the handler does not exist', function() {
+        assert.throws(function() {
+          cm.methodForSignature('test');
+        }, /method.*sig/);
       });
     });
   });
