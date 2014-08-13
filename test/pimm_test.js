@@ -57,7 +57,18 @@
           assert(_.contains(p.middleware, func));
         });
       });
+    });
 
+    describe('#routes', function() {
+      it('should execute a function in the context of the router', function() {
+        var context;
+        p.routes(function() { context = this; });
+        assert.equal(context, p._router);
+      });
+
+      it('should return the same instance for chaining', function() {
+        assert.equal(p.routes(), p);
+      });
     });
   });
 }());
