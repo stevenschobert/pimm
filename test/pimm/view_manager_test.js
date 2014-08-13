@@ -45,5 +45,11 @@
         .catch(done);
       });
     });
+
+    describe('#rendererForSignature', function() {
+      it('should return the function for the key name', function() {
+        assert.equal(vm.rendererForSignature('home/index'), vm.views['home/index'].render);
+      });
+    });
   });
 }());
