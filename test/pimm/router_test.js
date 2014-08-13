@@ -172,5 +172,67 @@
         })));
       });
     });
+
+    describe('#resource', function() {
+      beforeEach(function() {
+        r.resource('profile');
+      });
+
+      it('should add a \'new\' route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile/new',
+          method: 'get',
+          action: 'profile#new'
+        })));
+      });
+
+      it('should add a create route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile',
+          method: 'post',
+          action: 'profile#create'
+        })));
+      });
+
+      it('should add a show route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile',
+          method: 'get',
+          action: 'profile#show'
+        })));
+      });
+
+      it('should add an edit route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile/edit',
+          method: 'get',
+          action: 'profile#edit'
+        })));
+      });
+
+      it('should add an update route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile',
+          method: 'patch',
+          action: 'profile#update'
+        })));
+      });
+
+      it('should add a replace route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile',
+          method: 'put',
+          action: 'profile#replace'
+        })));
+      });
+
+      it('should add a destroy route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {
+          path: '/profile',
+          method: 'delete',
+          action: 'profile#destroy'
+        })));
+      });
+    });
   });
 }());
