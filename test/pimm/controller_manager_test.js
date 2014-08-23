@@ -30,6 +30,10 @@
         assert(_.has(cm.controllers['sub/room'], 'index'));
         assert.equal(cm.controllers['sub/room'].index(), cm.controllers['sub/room']._instance.index());
       });
+
+      it('should extend a controller\'s prototype with the base controllers methods', function() {
+        assert(_.isFunction(Object.getPrototypeOf(cm.controllers['sub/room']._instance).before));
+      });
     });
 
     describe('#methodForSignature', function() {
