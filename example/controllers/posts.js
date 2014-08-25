@@ -1,18 +1,24 @@
 (function() {
   'use strict';
 
-  var Controller = require('../../').Controller,
-      util = require('util'),
-      PostsController = function PostsController() {};
+  var PostsController = function PostsController() {};
 
-  util.inherits(PostsController, Controller);
-
+  /**
+   * Controller methods are organized as prototype functions.
+   * The function names (index/show/update) are automatically
+   * get to their correct CRUD paths by the Pimm router.
+   */
   PostsController.prototype.index = function index(request) {
     var posts = [
       {title: 'Hello world!'},
       {title: 'This is my blog'}
     ];
 
+    /**
+     * Pimm lets us quickly render out views without worrying
+     * about loading that view file, or specify things like
+     * templating language, etc.
+     */
     return this.render('posts/index', { posts: posts });
   };
 
