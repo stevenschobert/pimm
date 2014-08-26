@@ -93,3 +93,94 @@ app.routes(function() {
   this.get('login', 'session#new'); // manual routes
 });
 ```
+
+## Controller
+
+Every controller module you place in the `controllers/` directory will automatically inherit several
+APIs for you to use when parsing and responding to requests.
+
+You will mainly interface with these APIs through the `this` context inside your request handlers.
+
+### .json(object, status, headers)
+
+Create a JSON response object. Automatically sets a `Content-Type: "application/json"` header.
+Optionally accepts a `status` and `headers` object.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.json({test: 'value!'});
+};
+```
+
+### .text(string, status, headers)
+
+Create a text response object. Automatically sets a `Content-Type: "text/plain"` header.
+Optionally accepts a `status` and `headers` object.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.text('Not found!', 404);
+};
+```
+
+### .html(string, status, headers)
+
+Create a html response object. Automatically sets a `Content-Type: "text/html"` header.
+Optionally accepts a `status` and `headers` object.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.html('<h1>Hello world!</h1>');
+};
+```
+
+### .send(string, status, headers)
+
+Create a manual response object. Useful if none of the other response helper methods fit your needs.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.send('<p>Not Found!</p>', 404, {'Content-Type': 'text/html'});
+};
+```
+
+### .redirect(location, status, headers)
+
+Creates a redirect response object. Automatically sets the status to `302` and a `Location` header.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.redirect('/some-new-url');
+};
+```
+
+### .render(view, data, status, headers)
+
+Creates a response object by rendering a view file. Rather than passing a template to the render
+method, you pass a string that represents the file path (relative to the views directory) of the
+view to render.
+
+```js
+PostsController.prototype.index = function index(request) {
+  return this.render('posts/index', {posts: [...]});
+};
+```
+
+### .before(method..., function)
+
+Wraps a request method(s) with a new function. If the wrapper function returns a value, the
+underlying method will never get invoked.
+
+```js
+PostsController = function PostsController() {
+  this.before('index', 'create', function(request) {
+    if (!request.headers['X-Auth-Token']) {
+      return this.text('Not authed!', 401);
+    }
+  });
+};
+
+PostsController.prototype.index = function index(request) {
+  return this.text('Authed!');
+};
+```
