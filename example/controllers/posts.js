@@ -1,7 +1,25 @@
 (function() {
   'use strict';
 
-  var PostsController = function PostsController() {};
+  /**
+   * In Pimm, controllers are nothing more than classes
+   * you expose as a module. Pimm controllers also include
+   * helper methods for rendering data and views.
+   */
+  var PostsController = function PostsController() {
+    /**
+     * Easily run filters before controller actions.
+     * If the filter function returns a value, the
+     * underlying controller method will not get invoked.
+     */
+    this.before('index', function beforeIndex(request) {
+      /**
+       * Here you can easily modify the request object,
+       * or even return a response early, for example if you
+       * want to require authentication.
+       */
+    });
+  };
 
   /**
    * Controller methods are organized as prototype functions.

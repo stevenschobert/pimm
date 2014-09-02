@@ -4,6 +4,8 @@ var Pimm = require('../');
  * Create our Pimm app. Set "dir" to the current directory.
  * This will tell Pimm to look in the current directory
  * for a "controllers" and "views" folder.
+ *
+ * For all the options Pimm supports, check the README.
  */
 var app = new Pimm({
   dir: __dirname,
