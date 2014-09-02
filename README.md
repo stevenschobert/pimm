@@ -16,7 +16,7 @@ Highlights:
 
 ## Example
 
-If you're the kind of person who likes jump right into the code, check out the full example:
+If you prefer to jump right into the code, check out the example application:
 
 __[Example Pimm Application >](https://github.com/stevenschobert/pimm/tree/master/example)__
 
