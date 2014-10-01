@@ -13,6 +13,24 @@
       r = new Router();
     });
 
+    describe('#alias', function() {
+      beforeEach(function() {
+        r.alias('posts/:id', 'writings/:id');
+      });
+
+      it('should add a route', function() {
+        assert(!_.isEmpty(_.select(r.routes, {path: '/posts/:id'})));
+      });
+
+      it('should set the method to get', function() {
+        assert.equal(_.first(_.select(r.routes, {path: '/posts/:id'})).method, 'get');
+      });
+
+      it('should set the action to a function', function() {
+        assert(_.isFunction(_.first(_.select(r.routes, {path: '/posts/:id'})).action));
+      });
+    });
+
     describe('#get', function() {
       beforeEach(function() {
         r.get('profile', 'users#show');
