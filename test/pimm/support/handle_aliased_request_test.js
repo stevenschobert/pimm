@@ -41,14 +41,10 @@
     });
 
     describe('if the route does not match', function() {
-      it('should not return anything', function() {
-        assert(_.isUndefined(handleAliasedRequest('/old', '/new', 'temporary', {
+      it('should return 404', function() {
+        assert.equal(handleAliasedRequest('/old', '/new', 'temporary', {
           path: '/nope'
-        })));
-
-        assert(_.isUndefined(handleAliasedRequest('/old/:id', '/new/:id', 'temporary', {
-          path: '/old'
-        })));
+        }).status, 404);
       });
     });
   });
