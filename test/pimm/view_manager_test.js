@@ -12,6 +12,7 @@
 
     beforeEach(function(done) {
       vm = new ViewManager({dir: path.resolve(__dirname, '../fixtures/views')});
+      vm.sharedData.message = 'test shared message!';
       vm.load()
       .then(function() {
         done();
@@ -40,6 +41,15 @@
         vm.views['home/index'].render({message: 'Test message!'})
         .then(function(data) {
           assert.equal('<p>Test message!</p>', data);
+          done();
+        })
+        .catch(done);
+      });
+
+      it('should have access to shared data', function(done) {
+        vm.views['home/index'].render()
+        .then(function(data) {
+          assert.equal('<p>test shared message!</p>', data);
           done();
         })
         .catch(done);
