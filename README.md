@@ -1,6 +1,9 @@
 Pimm
 ====
 
+[![Build Status](https://travis-ci.org/stevenschobert/pimm.svg?branch=v0.4.1)](https://travis-ci.org/stevenschobert/pimm)
+[![Dependency Status](https://gemnasium.com/stevenschobert/pimm.svg)](https://gemnasium.com/stevenschobert/pimm)
+
 Pimm is an easy-going web framework for Node. Pimm focuses on removing boilerplate code from your
 applications, letting you tend to the logic and architecture _(the fun bits!)_ of your app.
 
