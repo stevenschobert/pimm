@@ -1,7 +1,7 @@
 {
   "name": "pimm",
   "version": "0.4.0",
-  "homepage": "https://github.com/ovenbits/pimm",
+  "homepage": "https://github.com/stevenschobert/pimm",
   "description": "An easy-going web framework for Node.",
   "main": "lib/pimm.js",
   "scripts": {
@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ovenbits/pimm.git"
+    "url": "git://github.com/stevenschobert/pimm.git"
   },
-  "author": "Steven Schobert <steven.schobert@ovenbits.com>",
+  "author": "Steven Schobert <spschobert@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ovenbits/pimm/issues"
+    "url": "https://github.com/stevenschobert/pimm/issues"
   },
   "dependencies": {
     "bluebird": "^2.2.2",
