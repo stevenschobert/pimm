@@ -1,50 +1,62 @@
 (function() {
 
   var assert = require('assert');
+  var mach = require('mach');
   var _ = require('lodash');
 
   var handleAliasedRequest = require('../../../lib/pimm/support/handle_aliased_request');
 
   describe('handleAliasedRequest', function() {
     describe('if the route matches', function() {
+      var conn;
+
+      beforeEach(function() {
+        conn = new mach.Connection();
+        conn.path = '/old';
+      });
+
       describe('with a \'permanent\' type', function() {
         it('should return a 301 status', function() {
-          assert.equal(handleAliasedRequest('/old', '/new', 'permanent', {
-            path: '/old'
-          }).status, 301);
+          handleAliasedRequest('/old', '/new', 'permanent', conn);
+          assert.equal(conn.status, 301);
         });
       });
 
       describe('with a \'temporary\' type', function() {
         it('should return a 302 status', function() {
-          assert.equal(handleAliasedRequest('/old', '/new', 'temporary', {
-            path: '/old'
-          }).status, 302);
+          handleAliasedRequest('/old', '/new', 'temporary', conn);
+          assert.equal(conn.status, 302);
         });
       });
 
       describe('with a plain route match', function() {
         it('should set the location to the new route', function() {
-          assert.equal(handleAliasedRequest('/old', '/new', 'temporary', {
-            path: '/old'
-          }).headers.Location, '/new');
+          handleAliasedRequest('/old', '/new', 'temporary', conn);
+          assert.equal(conn.response.headers.Location, '/new');
         });
       });
 
       describe('with a pattern route match', function() {
         it('should set the location to the new route with the params included', function() {
-          assert.equal(handleAliasedRequest('/posts/:id', '/writings/:id', 'temporary', {
-            path: '/posts/2'
-          }).headers.Location, '/writings/2');
+          var conn = new mach.Connection();
+          conn.path = '/posts/2';
+          handleAliasedRequest('/posts/:id', '/writings/:id', 'temporary', conn);
+          assert.equal(conn.response.headers.Location, '/writings/2');
         });
       });
     });
 
     describe('if the route does not match', function() {
+      var conn;
+
+      beforeEach(function() {
+        conn = new mach.Connection();
+        conn.path = '/nope';
+      });
+
       it('should return 404', function() {
-        assert.equal(handleAliasedRequest('/old', '/new', 'temporary', {
-          path: '/nope'
-        }).status, 404);
+        handleAliasedRequest('/old', '/new', 'temporary', conn);
+        assert.equal(conn.status, 404);
       });
     });
   });
