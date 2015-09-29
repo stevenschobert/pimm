@@ -1,6 +1,6 @@
 {
   "name": "pimm",
-  "version": "0.4.1",
+  "version": "0.5.0-beta1",
   "homepage": "https://github.com/stevenschobert/pimm",
   "description": "An easy-going web framework for Node.",
   "main": "lib/pimm.js",
