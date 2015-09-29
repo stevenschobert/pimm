@@ -12,9 +12,9 @@
      * If the filter function returns a value, the
      * underlying controller method will not get invoked.
      */
-    this.before('index', function beforeIndex(request) {
+    this.before('index', function beforeIndex(conn) {
       /**
-       * Here you can easily modify the request object,
+       * Here you can easily modify the connection object,
        * or even return a response early, for example if you
        * want to require authentication.
        */
@@ -26,7 +26,7 @@
    * The function names (index/show/update) are automatically
    * get to their correct CRUD paths by the Pimm router.
    */
-  PostsController.prototype.index = function index(request) {
+  PostsController.prototype.index = function index(conn) {
     var posts = [
       {title: 'Hello world!'},
       {title: 'This is my blog'}
@@ -37,7 +37,7 @@
      * about loading that view file, or specify things like
      * templating language, etc.
      */
-    return this.render('posts/index', { posts: posts });
+    return conn.render('posts/index', { posts: posts });
   };
 
   module.exports = PostsController;
