@@ -54,7 +54,7 @@
         it('should add a middleware to the stack', function() {
           var func = function() {};
           p.use(func);
-          assert(!_.isEmpty(_.where(p._middleware, {middleware: func})));
+          assert(!_.isEmpty(_.filter(p._middleware, {middleware: func})));
         });
       });
     });
