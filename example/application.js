@@ -22,6 +22,10 @@ var app = new Pimm({
  */
 app.routes(function() {
   this.resources('posts');
+
+  this.namespace('api', function() {
+    this.get('posts', 'posts#index');
+  });
 });
 
 /**
@@ -32,3 +36,6 @@ app.routes(function() {
 app.start().then(function() {
   console.log('Application started!');
 });
+
+// console.log(app._router.routes);
+// console.log(app._controller_manager);
