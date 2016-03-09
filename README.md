@@ -102,70 +102,90 @@ app.routes(function() {
 Every controller module you place in the `controllers/` directory will automatically inherit several
 APIs for you to use when parsing and responding to requests.
 
-You will mainly interface with these APIs through the `this` context inside your request handlers.
+All controller actions will also receive a `connection` parameter that can be used to parse
+requests and set responses.
 
-### .json(object, status, headers)
+### conn.json(status, json)
 
 Create a JSON response object. Automatically sets a `Content-Type: "application/json"` header.
-Optionally accepts a `status` and `headers` object.
+Optionally accepts a `status` as the first parameter.
 
 ```js
-PostsController.prototype.index = function index(request) {
-  return this.json({test: 'value!'});
+class PostsController {
+  index(conn) {
+    const message = "hello world";
+    return conn.json({ message });
+  }
 };
 ```
 
-### .text(string, status, headers)
+### conn.text(status, text)
 
 Create a text response object. Automatically sets a `Content-Type: "text/plain"` header.
-Optionally accepts a `status` and `headers` object.
+Optionally accepts a `status` as the first parameter.
 
 ```js
-PostsController.prototype.index = function index(request) {
-  return this.text('Not found!', 404);
+class PostsController {
+  index(conn) {
+    return conn.text(404, 'Not found!');
+  }
 };
 ```
 
-### .html(string, status, headers)
+### conn.html(status, html)
 
 Create a html response object. Automatically sets a `Content-Type: "text/html"` header.
-Optionally accepts a `status` and `headers` object.
+Optionally accepts a `status` as the first parameter.
 
 ```js
-PostsController.prototype.index = function index(request) {
-  return this.html('<h1>Hello world!</h1>');
+class PostsController {
+  index(conn) {
+    return conn.html('<h1>Hello world!</h1>');
+  }
 };
 ```
 
-### .send(string, status, headers)
+### conn.send(status, content)
 
 Create a manual response object. Useful if none of the other response helper methods fit your needs.
 
 ```js
-PostsController.prototype.index = function index(request) {
-  return this.send('<p>Not Found!</p>', 404, {'Content-Type': 'text/html'});
+class PostsController {
+  index(conn) {
+    conn.response.contentType = 'text/html';
+    return conn.send(404, '<p>Not Found!</p>');
+  }
 };
 ```
 
-### .redirect(location, status, headers)
-
-Creates a redirect response object. Automatically sets the status to `302` and a `Location` header.
-
-```js
-PostsController.prototype.index = function index(request) {
-  return this.redirect('/some-new-url');
-};
-```
-
-### .render(view, data, status, headers)
+### conn.render(status, view, data)
 
 Creates a response object by rendering a view file. Rather than passing a template to the render
 method, you pass a string that represents the file path (relative to the views directory) of the
 view to render.
 
 ```js
-PostsController.prototype.index = function index(request) {
-  return this.render('posts/index', {posts: [...]});
+class PostsController {
+  index(conn) {
+    const posts = [
+      { title: 'Hello world!' },
+      { title: 'This is my blog' }
+    ];
+
+    return conn.render('posts/index', { posts });
+  }
+};
+```
+
+### conn.redirect(status, location)
+
+Creates a redirect response object. Automatically sets the status to `302` and a `Location` header.
+
+```js
+class PostsController {
+  index(conn) {
+    return conn.redirect('/some-new-url');
+  }
 };
 ```
 
@@ -175,15 +195,22 @@ Wraps a request method(s) with a new function. If the wrapper function returns a
 underlying method will never get invoked.
 
 ```js
-PostsController = function PostsController() {
-  this.before('index', 'create', function(request) {
-    if (!request.headers['X-Auth-Token']) {
-      return this.text('Not authed!', 401);
-    }
-  });
-};
+class PostsController {
+  constructor() {
+    this.before('index', 'create', (conn) =>
+      if (!conn.headers['X-Auth-Token']) {
+        conn.text('Not authed!', 401);
+        return false;
+      }
+    })
+  }
 
-PostsController.prototype.index = function index(request) {
-  return this.text('Authed!');
+  index(conn) {
+    return conn.text('Authed!');
+  }
+
+  create(conn) {
+    return conn.text('Authed!');
+  }
 };
 ```
